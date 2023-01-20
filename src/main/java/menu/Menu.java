@@ -11,7 +11,7 @@ public class Menu {
         System.out.println("Welcome to the library!");
         System.out.println("Pick a role to continue: ");
         System.out.println("1. Client");
-        System.out.println("2. Admin");
+        System.out.println("2. Admin"); //Sisselogimine?
 
         System.out.println("-----------------");
         System.out.println("Select an option: ");
@@ -22,6 +22,7 @@ public class Menu {
                 clientMenu();
                 break;
             case 2:
+                //siia sisselogimise meetod ja siis seal callime seda adminMenu kui sisselogimine on õnnestunud
                 adminMenu();
                 break;
             case 3:
@@ -39,7 +40,7 @@ public class Menu {
         System.out.println("1. List of the books in the library");
         System.out.println("2. Issue book"); // Carolin checkBook(); OK
         System.out.println("3. Return book");
-        System.out.println("4. View all your rented books"); // Client.listOfRentedBooksByClientId
+        System.out.println("4. View all your rented books"); // Client.listOfRentedBooksByClientId(); OK
         System.out.println("5. Exit");
 
 
@@ -88,7 +89,7 @@ public class Menu {
         System.out.println("6. Delete user"); //deleteClientByAdmin(); OK
         System.out.println("7. View list of books"); //listBook(); OK
         System.out.println("8. View list of rented books"); // listOfRentedBooks(); OK
-        System.out.println("9. Exit");
+        System.out.println("9. Exit"); //mainMenu(); OK
 
 
 
