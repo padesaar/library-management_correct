@@ -97,7 +97,7 @@ public class Rent {
         }
     }
 
-    public static void listRent() {
+    public static void listOfRentedBooks() {
         Session session = Database.getHibSesh();
 
         try {

@@ -51,10 +51,41 @@ public class Book {
     }
 
 
-    public static void addBook(Book book) {
+    public static void addBook() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Hi, you wonderful admin! You are here to add a book");
+
+        System.out.println("Enter the title of the book:");
+        String title = scanner.nextLine();
+
+
+        System.out.println("Enter the category of the book:");
+        scanner.next();
+        String category = scanner.nextLine();
+
+
+        System.out.println("Enter the author of the new book:");
+        scanner.next();
+        String authorName = scanner.nextLine();
+
+
+        System.out.println("Enter the quantity of this book:");
+        int qty = scanner.nextInt();
+
         session.beginTransaction();
         Transaction trans = session.getTransaction();
+
         try {
+            Author author = new Author();
+            author.setAuthorName(authorName);
+            session.persist(author);
+            Book book = new Book();
+            book.setTitle(title);
+            book.setCategory(category);
+            book.setAuthor(author);
+            book.setAvailable(true);
+            book.setQtyInLibrary(qty);
+
             session.persist(book);
             session.flush();
             trans.commit();
@@ -64,13 +95,39 @@ public class Book {
         }
     }
 
-    public static void updateBook(String title, int isbn) {
+    public static void updateBook() {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Hello, please enter book's ISBN:");
+        int id = scanner.nextInt();
+
         session.beginTransaction();
         Transaction trans = session.getTransaction();
-        Book book = session.get(Book.class, isbn);
-        book.setTitle(title);
+        Book book = session.get(Book.class, id);
+        System.out.println("Book you want to update is:" + session.get(Book.class, book.getB_id()));
+        System.out.println("Now there are few thing to update. Stay in line.");
+
+        System.out.println("Enter books's new title:");
+        scanner.nextLine();
+        String title = scanner.nextLine();
+
+        System.out.println("Enter book's category:");
+        String category = scanner.next();
+
+        System.out.println("Enter the quantity of the book:");
+        int qty = scanner.nextInt();
+
+        System.out.println("Enter if the book is available in the library or not(true/false)");
+        boolean availability = scanner.nextBoolean();
+
+        System.out.println("Book with the inserted id will be updated. Please hold for further information...");
+
 
         try {
+            book.setTitle(title);
+            book.setCategory(category);
+            book.setAvailable(true);
+            book.setQtyInLibrary(qty);
             session.merge(book);
             session.flush();
             trans.commit();
@@ -78,9 +135,19 @@ public class Book {
             trans.rollback();
             e.printStackTrace();
         }
+        System.out.println("Thank you for update");
+        System.out.println("Updated info is here:");
+        System.out.println("Title of the book: " +title);
+        System.out.println("Category of the book:" +category);
+        System.out.println("Quantity in the library: " +qty);
+        System.out.println("And the book is available: " +availability);
     }
+    public static void deleteBook() {
 
-    public static void deleteBook(int isbn) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Hello, please enter book's ISBN:");
+        int isbn = scanner.nextInt();
+        System.out.println("Book with the inserted ISBN will be deleted. Please hold for further information...");
         session.beginTransaction();
         Transaction trans = session.getTransaction();
         Book book = session.get(Book.class, isbn);
@@ -93,6 +160,7 @@ public class Book {
             trans.rollback();
             e.printStackTrace();
         }
+        System.out.println("Book with the id: " +isbn+ "is deleted. Thank you!");
     }
 
     // Collections can be used to store the books in the library's collection.

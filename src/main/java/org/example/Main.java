@@ -69,11 +69,16 @@ public class Main {
 
         // Rent rent = new Rent(14, Timestamp.valueOf("2023-01-17 12:02:12"), Timestamp.valueOf("2023-01-17 12:02:12"), 4, true);
         // Rent.createNewRent(rent);
-        Rent.listRent();
+       // Rent.listRent();
 
         // Book.checkBook();
         // Client.updateClientByAdmin();
         // Client.addNewClientByAdmin();
+
+       // Book.addBook();
+        Book.listBook();
+       // Book.updateBook();
+        //Book.deleteBook();
 
 
 

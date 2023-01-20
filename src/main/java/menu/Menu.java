@@ -80,14 +80,14 @@ public class Menu {
 
     public static void adminMenu() { //Kätlin
         System.out.println("Pick a submenu to continue: ");
-        System.out.println("1. Add a book"); //
-        System.out.println("2. Update a book"); //
-        System.out.println("3. Delete a book"); //
+        System.out.println("1. Add a book"); // addBook(); OK aga äkki peaks kuidagi vaatama kas autor eksisteerib
+        System.out.println("2. Update a book"); // updateBook(); OK
+        System.out.println("3. Delete a book"); // deleteBook(); OK
         System.out.println("4. Add new user"); // addClientByAdmin(); OK
         System.out.println("5. Update user");  //updateClientByAdmin(); OK
         System.out.println("6. Delete user"); //deleteClientByAdmin(); OK
         System.out.println("7. View list of books"); //listBook(); OK
-        System.out.println("8. View list of rented books"); //
+        System.out.println("8. View list of rented books"); // listOfRentedBooks();
         System.out.println("9. Exit");
 
 

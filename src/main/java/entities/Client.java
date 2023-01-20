@@ -109,6 +109,7 @@ public class Client {
             trans.rollback();
             e.printStackTrace();
         }
+        System.out.println("Client with the id: " +id+ "is deleted. Thank you!");
     }
 
     public static void listClient() {
