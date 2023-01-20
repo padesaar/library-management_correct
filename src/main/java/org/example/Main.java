@@ -71,14 +71,17 @@ public class Main {
         // Rent.createNewRent(rent);
        // Rent.listRent();
 
-        // Book.checkBook();
+       // Book.checkBook();
         // Client.updateClientByAdmin();
         // Client.addNewClientByAdmin();
 
        // Book.addBook();
-        Book.listBook();
+       // Book.listBook();
        // Book.updateBook();
         //Book.deleteBook();
+
+       // Rent.listOfRentedBooks(); NOT OK
+       Client.listOfRentedBooksByClientId();
 
 
 

@@ -378,6 +378,7 @@ public class Book {
         } else {
             System.out.println("This book is not available at the moment. Come back later.");
         }
+        System.out.println("The book you rented is: " +book);
 
 
     }

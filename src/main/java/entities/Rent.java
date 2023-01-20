@@ -98,6 +98,8 @@ public class Rent {
     }
 
     public static void listOfRentedBooks() {
+
+        System.out.println("Hello, wonderful admin! Here is the list of rented books: ");
         Session session = Database.getHibSesh();
 
         try {
@@ -111,5 +113,8 @@ public class Rent {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("Thank you for viewing the list!");
     }
+
+
 }

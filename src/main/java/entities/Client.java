@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import static entities.Book.session;
 
@@ -188,6 +189,32 @@ public class Client {
 
         System.out.println("Thank you for registration! Please be mindful that client's id for this library is:" + session.get(Client.class, client.getC_id()));
 
+    }
+
+    public static void listOfRentedBooksByClientId() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Hello, wonderful client! Please enter your client id: ");
+        int client_id = scanner.nextInt();
+
+        System.out.println("Thank you!");
+        System.out.println("Here are the books you are currently renting:");
+
+        try {
+            session.beginTransaction();
+            List<Rent> rents = session.createQuery("from rent where client_id = :client_id", Rent.class)
+                    .setParameter("client_id", client_id)
+                    .getResultList();
+            for (Rent rent : rents) {
+                System.out.println(rent);
+            }
+            session.getTransaction().commit();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("Thank you for viewing the list!");
     }
 
 
