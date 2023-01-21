@@ -8,6 +8,7 @@ import entities.Rent;
 import org.hibernate.Session;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -81,8 +82,14 @@ public class Main {
         //Book.deleteBook();
 
        // Rent.listOfRentedBooks(); NOT OK
-       Client.listOfRentedBooksByClientId();
+       //Client.listOfRentedBooksByClientId();
 
+        //Book.issueBookByIsbn();
+       // Book.returnBookByIsbn();
+        //Rent.listOfRentedBooks();
+
+        //Book.listBook();
+        //Book.searchBooks();
 
 
     }

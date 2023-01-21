@@ -3,6 +3,7 @@ package entities;
 import db.Database;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import menu.Menu;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -341,8 +342,21 @@ public class Book {
     }
 
 
-    public static void checkBook() {
+    public boolean isBookAvailable(int qty) {
+
+        if (this.qtyInLibrary > 0 || this.qtyInLibrary > qty) {
+            return true;
+        } else {
+            System.out.println("Sorry this book is out of stock at the moment. Come back later!");
+            return false;
+        }
+
+    }
+
+    public static void issueBookByIsbn() {
+
         Scanner scanner = new Scanner(System.in);
+
         System.out.println("Enter your id:");
         int id = scanner.nextInt();
 
@@ -356,7 +370,6 @@ public class Book {
         Transaction trans = session.getTransaction();
         Book book = session.get(Book.class, bk);
         Client client = session.get(Client.class, id);
-
 
         if (book.isBookAvailable(qty)) {
             try {
@@ -372,27 +385,113 @@ public class Book {
                 session.flush();
                 trans.commit();
             } catch (Exception e) {
-                System.out.println("Something went wrong. Try again");
-                e.printStackTrace();
+                System.out.println("Something went wrong. Try again or go back to the main menu");
+                System.out.println("Press 1 to start again or 0 to go back to the main menu");
+                int option = scanner.nextInt();
+
+                switch (option) {
+                    case 0:
+                        Menu.mainMenu();
+                        break;
+                    case 1:
+                        Book.issueBookByIsbn();
+                        break;
+                }
             }
         } else {
             System.out.println("This book is not available at the moment. Come back later.");
+            System.out.println("You can press 1 to rent another book or 0 to go back to the main menu");
+            int option = scanner.nextInt();
+
+            switch (option) {
+                case 0:
+                    Menu.mainMenu();
+                    break;
+                case 1:
+                    Book.issueBookByIsbn();
+                    break;
+            }
         }
-        System.out.println("The book you rented is: " +book);
-
-
+        System.out.println("The book you rented is: " + book);
+        Menu.clientMenu();
     }
 
+    public static void returnBookByIsbn() {
+        Scanner scanner = new Scanner(System.in);
 
-    public boolean isBookAvailable(int qty) {
+        System.out.println("To return a book please enter your id: ");
+        int client_id = scanner.nextInt();
 
-        if (this.qtyInLibrary > 0 || this.qtyInLibrary > qty) {
-            return true;
-        } else {
-            System.out.println("Sorry this book is out of stock at the moment. Come back later!");
-            return false;
+        System.out.println("Enter a book's isbn to return:");
+        int bk = scanner.nextInt();
+
+        System.out.println("How many books you will return?");
+        int qty = scanner.nextInt();
+
+        session.beginTransaction();
+        Transaction trans = session.getTransaction();
+        Book book = session.get(Book.class, bk);
+        Client client = session.get(Client.class, client_id);
+
+        do {
+
+            try {
+                Rent rent = session.get(Rent.class, client_id);
+                rent.setBook(book);
+                rent.setClient(client);
+                rent.setReturned(true);
+                book.setQtyInLibrary(book.qtyInLibrary + qty);
+                session.merge(client);
+                session.merge(book);
+                session.merge(rent);
+                session.flush();
+                trans.commit();
+            } catch (Exception e) {
+                System.out.println("Something went wrong. Try again or go back to the main menu");
+                System.out.println("Press 1 to start again or 0 to go back to the main menu");
+                int option = scanner.nextInt();
+
+                switch (option) {
+                    case 0:
+                        Menu.mainMenu();
+                        break;
+                    case 1:
+                        Book.issueBookByIsbn();
+                        break;
+                }
+            }
+        } while (qty == 0);
+
+        System.out.println("The book you rented is returned! Thank you!");
+        System.out.println("Press 0 to return to our main menu");
+        int option = scanner.nextInt();
+        switch (option) {
+            case 0:
+                Menu.mainMenu();
+                break;
         }
+    }
 
+    public static void searchBooks() {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("Enter ISBN or title of the book to search:");
+            String search = scanner.nextLine();
+            List<Book> books = session.createQuery("from book").list();
+            if (books.isEmpty()) {
+                System.out.println("No books found for the search term: " + search);
+            } else {
+                for (Book book : books) {
+                    System.out.println("ISBN: " + book.getB_id() + ", Title: " + book.getTitle() + ", Author: " + book.getAuthor());
+                }
+            }
+            System.out.println("Enter 0 to exit or any other key to continue search:");
+            int choice = Integer.parseInt(scanner.nextLine());
+            if (choice == 0) {
+                System.exit(0);
+            }
+        }
     }
 }
 
