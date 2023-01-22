@@ -86,13 +86,15 @@ public class Main {
        //Client.listOfRentedBooksByClientId();
 
         //Book.issueBookByIsbn();
-       // Book.returnBookByIsbn();
+      Book.returnBookByIsbn();
         //Rent.listOfRentedBooks();
 
-        //Book.listBook();
+       //Book.listBook();
         //Book.searchBooks();
 
        // Client.adminLogin();
+        //Book.searchBookByTitle();
+        //Book.putOnHold(20);
 
     }
 }
