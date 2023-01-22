@@ -1,5 +1,7 @@
 package menu;
 
+import entities.Client;
+
 import java.util.Scanner;
 /**
  * Menu for library management system
@@ -22,8 +24,7 @@ public class Menu {
                 clientMenu();
                 break;
             case 2:
-                //siia sisselogimise meetod ja siis seal callime seda adminMenu kui sisselogimine on õnnestunud
-                adminMenu();
+                Client.adminLogin();
                 break;
             case 3:
                 break;

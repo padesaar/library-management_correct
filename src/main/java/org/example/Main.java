@@ -5,6 +5,7 @@ import entities.Author;
 import entities.Book;
 import entities.Client;
 import entities.Rent;
+import menu.Menu;
 import org.hibernate.Session;
 
 import java.sql.Timestamp;
@@ -91,6 +92,7 @@ public class Main {
         //Book.listBook();
         //Book.searchBooks();
 
+       // Client.adminLogin();
 
     }
 }

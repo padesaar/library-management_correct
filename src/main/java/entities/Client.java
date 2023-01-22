@@ -3,6 +3,7 @@ import db.Database;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import menu.Menu;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -215,6 +216,22 @@ public class Client {
             e.printStackTrace();
         }
         System.out.println("Thank you for viewing the list!");
+    }
+
+    public static void adminLogin() {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("You are trying to enter the admin menu. For that you need to enter the password:");
+
+        String password = scanner.nextLine();
+
+        if(password.equals("greenlibrary123")) {
+            Menu.adminMenu();
+        } else {
+            System.out.println("Sorry, the password is wrong.");
+        }
+        Menu.mainMenu();
     }
 
 
